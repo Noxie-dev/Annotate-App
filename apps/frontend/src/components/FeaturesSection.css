@@ -1,0 +1,173 @@
+/* Features Section Animation Styles */
+
+/* Base state for feature cards */
+.feature-card-animated {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Animated state when card comes into view */
+.feature-card-animated.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced hover effects */
+.feature-card-animated:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Focus styles for accessibility */
+.feature-card-animated:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+  transform: translateY(-4px);
+}
+
+/* Icon container animations */
+.feature-card-animated .w-16.h-16 {
+  transition: transform 0.3s ease;
+}
+
+.feature-card-animated:hover .w-16.h-16 {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Text animations */
+.feature-card-animated h3 {
+  transition: color 0.3s ease;
+}
+
+.feature-card-animated:hover h3 {
+  color: #1f2937;
+}
+
+/* Stagger animation delays for grid items */
+.feature-card-animated:nth-child(1) { transition-delay: 0ms; }
+.feature-card-animated:nth-child(2) { transition-delay: 100ms; }
+.feature-card-animated:nth-child(3) { transition-delay: 200ms; }
+.feature-card-animated:nth-child(4) { transition-delay: 300ms; }
+.feature-card-animated:nth-child(5) { transition-delay: 400ms; }
+.feature-card-animated:nth-child(6) { transition-delay: 500ms; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .feature-card-animated {
+    transform: translateY(30px);
+  }
+
+  .feature-card-animated:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card-animated {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+
+  .feature-card-animated.animate-in {
+    transform: none;
+  }
+
+  .feature-card-animated:hover {
+    transform: none;
+  }
+
+  .feature-card-animated:hover .w-16.h-16 {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .feature-card-animated {
+    border: 2px solid #000;
+  }
+
+  .feature-card-animated:focus-visible {
+    outline: 3px solid #000;
+  }
+}
+
+/* Loading state for cards */
+.feature-card-animated.loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Pulse animation for icons */
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.feature-card-animated.animate-in .w-16.h-16 {
+  animation: iconPulse 2s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* Gradient background animation for section */
+.features-section-bg {
+  background: linear-gradient(-45deg, #f8fafc, #e2e8f0, #cbd5e1, #f1f5f9);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Card entrance animation variants */
+.feature-card-animated.slide-up {
+  transform: translateY(50px);
+}
+
+.feature-card-animated.slide-left {
+  transform: translateX(-50px);
+}
+
+.feature-card-animated.slide-right {
+  transform: translateX(50px);
+}
+
+.feature-card-animated.fade-in {
+  transform: scale(0.9);
+}
+
+.feature-card-animated.animate-in.slide-up,
+.feature-card-animated.animate-in.slide-left,
+.feature-card-animated.animate-in.slide-right {
+  transform: translateY(0) translateX(0);
+}
+
+.feature-card-animated.animate-in.fade-in {
+  transform: scale(1);
+}

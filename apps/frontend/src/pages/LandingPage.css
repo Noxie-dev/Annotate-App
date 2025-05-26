@@ -1,0 +1,614 @@
+/* Landing Page Styles */
+
+/* 🎨 Glamorous Gradient Background with Animated Grid Overlay */
+
+/* Hero Section Foundation */
+.hero-section {
+  font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  /* The Gradient Foundation - 135deg diagonal gradient */
+  background: linear-gradient(135deg, var(--midnight-blue) 0%, var(--slate-blue) 50%, var(--sky-blue) 100%);
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ⚡ The Animated Grid Overlay */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Enhanced inline SVG pattern with precise grid lines */
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  /* 🔄 The Movement Effect - continuous diagonal slide for seamless loop */
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Grid Movement Animation - seamless loop every 20 seconds */
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(10px, 10px); }
+}
+
+/* Content Container - positioned above the animated background */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Hero Grid Layout */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  min-height: 80vh;
+}
+
+/* Hero Text Styles */
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  color: #22d3ee;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: #d1d5db;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 32rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Gradient text effect for "Document" */
+.gradient-text {
+  background: linear-gradient(to right, #60a5fa, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* CTA Button Styles */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #3b82f6, #06b6d4);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 200px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: 2px solid #9ca3af;
+  color: #d1d5db;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 200px;
+}
+
+.btn-secondary:hover {
+  border-color: #22d3ee;
+  color: #22d3ee;
+  transform: translateY(-2px);
+}
+
+/* Trust Indicators */
+.trust-indicators {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.trust-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Document preview container - Updated for significantly wider document (2x) */
+.document-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px; /* Increased from 700px to 1400px for 2x wider document */
+  margin: 0 auto;
+}
+
+/* 📄 Document Implementation Styles */
+
+/* Document Preview with 3D Transformation - Updated for mouse-following rotation */
+.document-preview {
+  /* Base transform is now handled dynamically in JavaScript */
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+/* Document Header with macOS-style controls - Exact specifications */
+.doc-header {
+  height: 60px;
+  background: var(--midnight-blue); /* #1E2A38 */
+  border-radius: 16px 16px 0 0;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px gap between dots */
+}
+
+.doc-controls {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%; /* Perfect circles */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-controls-red {
+  background: var(--error-red); /* #EB5757 */
+}
+
+.doc-controls-yellow {
+  background: var(--warm-gold); /* #F2C94C */
+}
+
+.doc-controls-green {
+  background: var(--success-green); /* #27AE60 */
+}
+
+.doc-controls:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Document Content Area - Exact specifications */
+.doc-content {
+  padding: 2rem; /* 32px all sides */
+  height: calc(100% - 60px); /* 440px total after header */
+  background: white;
+  border-radius: 0 0 16px 16px;
+  position: relative;
+}
+
+/* Document Lines - Exact specifications */
+.doc-line {
+  height: 4px; /* Exact 4px height */
+  background: #E5E5E5; /* Light gray */
+  margin-bottom: 1rem; /* 16px spacing */
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Highlighted Document Line with Animation */
+.doc-line.highlighted {
+  background: var(--warm-gold); /* #F2C94C */
+  animation: highlightPulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(242, 201, 76, 0.3);
+}
+
+/* Signature Area - Exact specifications */
+.signature-area {
+  position: absolute;
+  bottom: 2rem; /* 32px from bottom */
+  right: 2rem;  /* 32px from right */
+  width: 120px;
+  height: 40px;
+  border: 2px dashed var(--sky-blue); /* #3CA6E5 */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sky-blue);
+  font-size: 0.8rem; /* 12.8px */
+  font-weight: 500;
+  animation: signaturePulse 3s ease-in-out infinite;
+  background: rgba(60, 166, 229, 0.05);
+  transition: all 0.3s ease;
+}
+
+.signature-area:hover {
+  background: rgba(60, 166, 229, 0.1);
+  transform: scale(1.02);
+}
+
+/* Floating Cursors - Moving Particles */
+.floating-cursors {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.cursor-dot-cyan {
+  background: var(--electric-cyan); /* #56CCF2 */
+  animation: cursorFloat 4s ease-in-out infinite;
+}
+
+.cursor-dot-gold {
+  background: var(--warm-gold); /* #F2C94C */
+  animation: cursorFloat 4s ease-in-out infinite;
+  animation-delay: -2s; /* 50% offset */
+  left: 20px;
+  top: -10px;
+}
+
+/* Cursor Float Animation - Figure-8 movement */
+@keyframes cursorFloat {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(10px, -5px); }
+  50%      { transform: translate(-5px, -10px); }
+  75%      { transform: translate(-10px, 5px); }
+}
+
+/* Document Animation Keyframes */
+@keyframes highlightPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes signaturePulse {
+  0%, 100% {
+    border-color: var(--sky-blue);
+    box-shadow: 0 0 0 rgba(60, 166, 229, 0.4);
+  }
+  50% {
+    border-color: #22d3ee;
+    box-shadow: 0 0 20px rgba(60, 166, 229, 0.2);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+    min-height: auto;
+  }
+
+  .hero-description {
+    margin: 0 auto 2rem auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .trust-indicators {
+    justify-content: center;
+  }
+
+  /* Adjust document preview container for tablet */
+  .document-preview-container {
+    max-width: 95%;
+    padding: 0 1rem;
+  }
+
+  /* Scale down document content for tablet */
+  .doc-content {
+    padding: 1.75rem 2.5rem; /* Medium padding for tablet */
+    min-height: 320px; /* Medium height for tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 1rem;
+  }
+
+  .hero-grid {
+    gap: 1.5rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    min-width: 280px;
+  }
+
+  .trust-indicators {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Hide cursor follower on mobile for performance */
+  .cursor-follower {
+    display: none;
+  }
+
+  /* Adjust document preview container for mobile */
+  .document-preview-container {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  /* Reduce document size on mobile for better fit */
+  .document-preview {
+    max-width: 95vw !important;
+  }
+
+  /* Adjust document content padding on mobile */
+  .doc-content {
+    padding: 1.5rem 2rem; /* Reduced padding for mobile */
+    min-height: 280px; /* Reduced height for mobile */
+  }
+
+  /* Adjust document lines for mobile */
+  .doc-line {
+    height: 12px; /* Smaller height on mobile */
+    margin-bottom: 0.75rem; /* Reduced spacing */
+  }
+
+  /* Adjust signature area for mobile */
+  .signature-area {
+    padding: 1rem 1.5rem; /* Reduced padding for mobile */
+    font-size: 1rem; /* Normal text size on mobile */
+    margin-top: 1.5rem; /* Reduced margin */
+  }
+
+  /* Adjust document header for mobile */
+  .doc-header {
+    padding: 0.75rem 1rem; /* Reduced padding for mobile */
+  }
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+  animation: bounce 2s infinite;
+}
+
+.scroll-indicator-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.scroll-indicator-icon {
+  width: 1.5rem;
+  height: 2.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.25rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.scroll-indicator-dot {
+  width: 0.25rem;
+  height: 0.75rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 0.125rem;
+  margin-top: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section::before {
+    animation: none !important;
+  }
+
+  .scroll-indicator {
+    animation: none !important;
+  }
+
+  .scroll-indicator-dot {
+    animation: none !important;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .hero-section {
+    background: white !important;
+  }
+
+  .hero-title,
+  .hero-subtitle,
+  .hero-description {
+    color: black !important;
+  }
+
+  .gradient-text {
+    background: none !important;
+    -webkit-text-fill-color: black !important;
+    color: black !important;
+  }
+}
+
+/* Features Section */
+.features {
+  background: white;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #f1f5f9;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Footer */
+footer {
+  background: #1e40af;
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+footer p {
+  margin: 0.5rem 0;
+  opacity: 0.9;
+}
+
+/* Animations */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 1024px) {
+  .hero-section h1 {
+    font-size: 3rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 2rem !important;
+  }
+
+  .hero-section p {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+a:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
