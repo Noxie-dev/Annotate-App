@@ -1,173 +1,142 @@
-/* Features Section Animation Styles */
+/* Modal Feature Cards - Exact Implementation from Guide */
 
-/* Base state for feature cards */
-.feature-card-animated {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+/* CSS Grid layout with 2 cards per row and safe spacing */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Exactly 2 cards per row */
+  gap: 3rem; /* 48px gap between cards */
+  margin-top: 6rem; /* Increased to 96px for extra separation from scroll indicator */
 }
 
-/* Animated state when card comes into view */
-.feature-card-animated.animate-in {
-  opacity: 1;
-  transform: translateY(0);
+/* Feature Card Modal with constrained animations to prevent scroll indicator interference */
+.feature-card-modal {
+  background: white;
+  padding: 3rem; /* 48px padding on all sides */
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Base shadow: 10px vertical blur, 30px spread */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(60, 166, 229, 0.1);
+  position: relative;
+  z-index: 1; /* Well below scroll indicator (z-index: 50) to prevent any overlap */
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  /* Constrain animations to prevent upward movement beyond safe zone */
+  transform-origin: center bottom;
 }
 
-/* Enhanced hover effects */
-.feature-card-animated:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  border-color: rgba(59, 130, 246, 0.2);
+/* Constrained Hover Animation: Limited upward movement to prevent scroll indicator interference */
+.feature-card-modal:hover {
+  transform: translateY(-8px); /* Reduced from -10px to ensure safe distance from scroll indicator */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Intensified shadow */
+}
+
+/* Feature Icon with exact specifications: 60×60px with 135° diagonal gradient */
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--sky-blue), var(--electric-cyan));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem; /* 24px bottom margin */
+  font-size: 1.5rem; /* 24px font size */
+}
+
+/* Feature card title styling */
+.feature-card-title {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+/* Feature card description styling */
+.feature-card-description {
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 0.875rem; /* 14px */
+  flex-grow: 1;
 }
 
 /* Focus styles for accessibility */
-.feature-card-animated:focus-visible {
+.feature-card-modal:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 4px;
   transform: translateY(-4px);
 }
 
-/* Icon container animations */
-.feature-card-animated .w-16.h-16 {
+/* Icon hover animation */
+.feature-card-modal:hover .feature-icon {
+  transform: scale(1.05) rotate(2deg);
+}
+
+.feature-icon {
   transition: transform 0.3s ease;
 }
 
-.feature-card-animated:hover .w-16.h-16 {
-  transform: scale(1.1) rotate(5deg);
+/* Responsive adjustments with maintained safe spacing */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: 1fr; /* Single column on tablets and mobile */
+    gap: 2rem; /* Reduced gap on smaller screens */
+    margin-top: 4rem; /* Maintain safe distance from scroll indicator on tablets */
+  }
 }
 
-/* Text animations */
-.feature-card-animated h3 {
-  transition: color 0.3s ease;
-}
-
-.feature-card-animated:hover h3 {
-  color: #1f2937;
-}
-
-/* Stagger animation delays for grid items */
-.feature-card-animated:nth-child(1) { transition-delay: 0ms; }
-.feature-card-animated:nth-child(2) { transition-delay: 100ms; }
-.feature-card-animated:nth-child(3) { transition-delay: 200ms; }
-.feature-card-animated:nth-child(4) { transition-delay: 300ms; }
-.feature-card-animated:nth-child(5) { transition-delay: 400ms; }
-.feature-card-animated:nth-child(6) { transition-delay: 500ms; }
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
-  .feature-card-animated {
-    transform: translateY(30px);
+  .features-grid {
+    margin-top: 3rem; /* Slightly reduced but still safe spacing on mobile */
   }
 
-  .feature-card-animated:hover {
-    transform: translateY(-4px) scale(1.01);
+  .feature-card-modal {
+    padding: 2rem; /* Reduced padding on mobile */
+  }
+
+  .feature-card-modal:hover {
+    transform: translateY(-4px); /* Further reduced hover effect on mobile for extra safety */
   }
 }
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .feature-card-animated {
+  .feature-card-modal {
     transition: opacity 0.3s ease;
+  }
+
+  .feature-card-modal:hover {
     transform: none;
   }
 
-  .feature-card-animated.animate-in {
+  .feature-card-modal:hover .feature-icon {
     transform: none;
   }
 
-  .feature-card-animated:hover {
-    transform: none;
-  }
-
-  .feature-card-animated:hover .w-16.h-16 {
-    transform: none;
+  .feature-icon {
+    transition: none;
   }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .feature-card-animated {
+  .feature-card-modal {
     border: 2px solid #000;
   }
 
-  .feature-card-animated:focus-visible {
+  .feature-card-modal:focus-visible {
     outline: 3px solid #000;
   }
-}
 
-/* Loading state for cards */
-.feature-card-animated.loading {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
+  .feature-icon {
+    background: #000 !important;
   }
 }
 
-/* Pulse animation for icons */
-@keyframes iconPulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-.feature-card-animated.animate-in .w-16.h-16 {
-  animation: iconPulse 2s ease-in-out infinite;
-  animation-delay: 1s;
-}
-
-/* Gradient background animation for section */
-.features-section-bg {
-  background: linear-gradient(-45deg, #f8fafc, #e2e8f0, #cbd5e1, #f1f5f9);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Card entrance animation variants */
-.feature-card-animated.slide-up {
-  transform: translateY(50px);
-}
-
-.feature-card-animated.slide-left {
-  transform: translateX(-50px);
-}
-
-.feature-card-animated.slide-right {
-  transform: translateX(50px);
-}
-
-.feature-card-animated.fade-in {
-  transform: scale(0.9);
-}
-
-.feature-card-animated.animate-in.slide-up,
-.feature-card-animated.animate-in.slide-left,
-.feature-card-animated.animate-in.slide-right {
-  transform: translateY(0) translateX(0);
-}
-
-.feature-card-animated.animate-in.fade-in {
-  transform: scale(1);
+/* Icon container styling for proper alignment */
+.feature-icon-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
 }

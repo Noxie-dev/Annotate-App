@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { trackAuth, trackForm, trackError } from '../utils/analytics';
+import Logo from '../components/Logo';
 
 interface SignupFormData {
   firstName: string;
@@ -155,6 +156,11 @@ export default function Signup() {
         className="max-w-md w-full"
       >
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-ubuntu-blue-200">
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <Logo size="md" variant="dark" showText={false} />
+          </div>
+
           {/* Header */}
           <div className="text-center mb-8">
             <motion.h1

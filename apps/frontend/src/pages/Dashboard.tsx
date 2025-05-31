@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Logo from '../components/Logo';
 
 export default function Dashboard() {
   return (
@@ -10,12 +11,18 @@ export default function Dashboard() {
         className="max-w-6xl mx-auto"
       >
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-ubuntu-blue-200">
-          <h1 className="text-3xl font-bold text-ubuntu-blue-800 mb-4 font-ubuntu">
-            Welcome to File Chat Dashboard
-          </h1>
-          <p className="text-ubuntu-cool-grey mb-8">
-            You have successfully logged in! This is where your document collaboration features will be available.
-          </p>
+          {/* Header with Logo */}
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-ubuntu-blue-800 mb-2 font-ubuntu">
+                Welcome to File Chat Dashboard
+              </h1>
+              <p className="text-ubuntu-cool-grey">
+                You have successfully logged in! This is where your document collaboration features will be available.
+              </p>
+            </div>
+            <Logo size="md" variant="dark" showText={false} />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-ubuntu-blue-50 rounded-lg p-6 border border-ubuntu-blue-200">

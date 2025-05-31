@@ -44,3 +44,28 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
+
+/* Logo responsive enhancements */
+.logo-responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile-first responsive logo sizing */
+@media (max-width: 640px) {
+  .logo-sm { width: 80px; }
+  .logo-md { width: 100px; }
+  .logo-lg { width: 120px; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .logo-sm { width: 96px; }
+  .logo-md { width: 128px; }
+  .logo-lg { width: 160px; }
+}
+
+@media (min-width: 1025px) {
+  .logo-sm { width: 96px; }
+  .logo-md { width: 128px; }
+  .logo-lg { width: 160px; }
+}

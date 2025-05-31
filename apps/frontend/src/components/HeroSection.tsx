@@ -4,6 +4,7 @@ import { trackCTA } from '../utils/analytics';
 import DocumentPreview from './DocumentPreview';
 import CursorFollower from './CursorFollower';
 import BackgroundGrid from './BackgroundGrid';
+import Header from './Header';
 
 const HeroSection: React.FC = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -36,6 +37,7 @@ const HeroSection: React.FC = () => {
 
   return (
     <>
+      <Header />
       <CursorFollower />
       <section
         ref={heroRef}

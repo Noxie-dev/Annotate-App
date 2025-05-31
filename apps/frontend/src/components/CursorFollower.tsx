@@ -2,15 +2,13 @@ import React, { useEffect, useRef } from 'react';
 
 const CursorFollower: React.FC = () => {
   const followerRef = useRef<HTMLDivElement>(null);
-  const trailRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Mathematical Implementation with Linear Interpolation (lerp)
     let mouseX = 0;
     let mouseY = 0;
     let followerX = 0;
     let followerY = 0;
-    let trailX = 0;
-    let trailY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
@@ -18,54 +16,58 @@ const CursorFollower: React.FC = () => {
     };
 
     const animateCursor = () => {
-      // Main follower with smooth lag
-      const speed = 0.15;
+      // Linear interpolation with exponential decay effect
+      // Mathematical Formula: newPosition = currentPosition + (targetPosition - currentPosition) × speed
+      const speed = 0.1; // Speed factor creates exponential decay
+
       followerX += (mouseX - followerX) * speed;
       followerY += (mouseY - followerY) * speed;
 
-      // Trail with more lag
-      const trailSpeed = 0.08;
-      trailX += (mouseX - trailX) * trailSpeed;
-      trailY += (mouseY - trailY) * trailSpeed;
-
       if (followerRef.current) {
-        followerRef.current.style.transform = `translate(${followerX - 12}px, ${followerY - 12}px)`;
+        // The -10px offset centers the 20px dot on the cursor position
+        followerRef.current.style.transform = `translate(${followerX - 10}px, ${followerY - 10}px)`;
       }
 
-      if (trailRef.current) {
-        trailRef.current.style.transform = `translate(${trailX - 8}px, ${trailY - 8}px)`;
-      }
-
+      // requestAnimationFrame ensures 60fps smooth animation
       requestAnimationFrame(animateCursor);
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    const animationId = requestAnimationFrame(animateCursor);
+    // Check if device supports hover (not touch-only)
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
+
+    if (supportsHover) {
+      document.addEventListener('mousemove', handleMouseMove);
+      animateCursor();
+    }
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationId);
     };
   }, []);
 
+  // Hide on mobile for performance (touch-only devices)
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+
+  if (isMobile) return null;
+
   return (
-    <>
-      {/* Trail cursor */}
-      <div
-        ref={trailRef}
-        className="fixed w-4 h-4 bg-cyan-400/30 rounded-full pointer-events-none z-50 mix-blend-difference"
-        style={{ transition: 'transform 0.1s ease-out' }}
-        aria-hidden="true"
-      />
-      
-      {/* Main cursor follower */}
-      <div
-        ref={followerRef}
-        className="fixed w-6 h-6 border-2 border-cyan-400/60 rounded-full pointer-events-none z-50 mix-blend-difference"
-        style={{ transition: 'transform 0.1s ease-out' }}
-        aria-hidden="true"
-      />
-    </>
+    <div
+      ref={followerRef}
+      className="cursor-follower"
+      style={{
+        position: 'fixed',
+        width: '20px',
+        height: '20px',
+        background: 'var(--sky-blue)',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+        zIndex: 9999,
+        opacity: 0.6,
+        transition: 'transform 0.1s ease-out',
+        mixBlendMode: 'difference'
+      }}
+      aria-hidden="true"
+    />
   );
 };
 
