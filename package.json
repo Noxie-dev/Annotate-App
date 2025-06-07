@@ -8,6 +8,7 @@
     "apps/*"
   ],
   "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "cd apps/frontend && npm run dev",
     "dev:backend": "cd apps/backend && npm run dev",
     "dev:mobile": "cd apps/mobile && npm start",

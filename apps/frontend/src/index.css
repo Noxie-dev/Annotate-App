@@ -1,71 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  font-family: 'Ubuntu', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  /* Color palette for gradient background */
-  --midnight-blue: #1e2a38;
-  --slate-blue: #283c5a;
-  --sky-blue: #3ca6e5;
-  --warm-gold: #f2c94c;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
 
-  /* Additional colors for document preview */
-  --electric-cyan: #56ccf2;
-  --error-red: #eb5757;
-  --success-green: #27ae60;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #ffffff;
-  color: #111111;
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Logo responsive enhancements */
-.logo-responsive {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Mobile-first responsive logo sizing */
-@media (max-width: 640px) {
-  .logo-sm { width: 80px; }
-  .logo-md { width: 100px; }
-  .logo-lg { width: 120px; }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
-  .logo-sm { width: 96px; }
-  .logo-md { width: 128px; }
-  .logo-lg { width: 160px; }
-}
-
-@media (min-width: 1025px) {
-  .logo-sm { width: 96px; }
-  .logo-md { width: 128px; }
-  .logo-lg { width: 160px; }
-}

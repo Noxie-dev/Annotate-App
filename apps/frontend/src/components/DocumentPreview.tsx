@@ -1,111 +1,74 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import '../styles/DocumentPreview.css';
 
 const DocumentPreview: React.FC = () => {
-  const previewRef = useRef<HTMLDivElement>(null);
+  const docRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
+  
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (previewRef.current) {
-        const rect = previewRef.current.getBoundingClientRect();
-
-        // Calculate document center
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        // Calculate mouse position relative to document center
-        const deltaX = e.clientX - centerX;
-        const deltaY = e.clientY - centerY;
-
-        // Calculate rotation angles to make document "look at" the mouse
-        // Normalize the deltas and apply rotation limits
-        const maxRotationY = 25; // Maximum Y rotation in degrees
-        const maxRotationX = 15; // Maximum X rotation in degrees
-
-        // Calculate rotation based on distance from center
-        const rotateY = (deltaX / (rect.width / 2)) * maxRotationY;
-        const rotateX = -(deltaY / (rect.height / 2)) * maxRotationX;
-
-        // Clamp rotation values to prevent extreme angles
-        const clampedRotateY = Math.max(-maxRotationY, Math.min(maxRotationY, rotateY));
-        const clampedRotateX = Math.max(-maxRotationX, Math.min(maxRotationX, rotateX));
-
-        setMousePosition({
-          x: clampedRotateY,
-          y: clampedRotateX,
-        });
-      }
+      setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    // Listen to mouse movement on the entire window for better tracking
     window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  useEffect(() => {
+    const docElement = docRef.current;
+    if (!docElement) return;
+
+    const rect = docElement.getBoundingClientRect();
+    const docCenterX = rect.left + rect.width / 2;
+    const docCenterY = rect.top + rect.height / 2;
+
+    // Calculate the angle between cursor and document center
+    const deltaX = mousePosition.x - docCenterX;
+    const deltaY = mousePosition.y - docCenterY;
+
+    // Calculate distance from cursor to document center
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    const maxDistance = Math.max(window.innerWidth, window.innerHeight) / 2;
+    const distanceFactor = Math.min(distance / maxDistance, 1);
+
+    // Calculate rotation angles based on cursor position
+    const rotateY = (deltaX / maxDistance) * 30;
+    const rotateX = -(deltaY / maxDistance) * 20;
+
+    // Apply smooth transition
+    docElement.style.transform = `
+      perspective(1000px)
+      rotateY(${rotateY}deg)
+      rotateX(${rotateX}deg)
+      scale(${1 - distanceFactor * 0.05})
+    `;
+  }, [mousePosition]);
+
   return (
-    <div
-      ref={previewRef}
-      className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Document container with exact 350px × 500px dimensions */}
-      <div
-        className="document-preview relative mx-auto transition-all duration-300 ease-out"
-        style={{
-          width: '350px',
-          height: '500px',
-          background: 'white',
-          borderRadius: '16px',
-          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.3)',
-          transform: `perspective(1000px) rotateY(${mousePosition.x}deg) rotateX(${mousePosition.y}deg) ${isHovered ? 'scale(1.05)' : 'scale(1)'}`,
-        }}
-      >
-        {/* Document Header with macOS-style controls */}
+    <div className="hero-visual">
+      <div className="document-preview" ref={docRef}>
         <div className="doc-header">
-          <div className="doc-controls doc-controls-red"></div>  {/* Red dot */}
-          <div className="doc-controls doc-controls-yellow"></div>  {/* Yellow dot */}
-          <div className="doc-controls doc-controls-green"></div>  {/* Green dot */}
+          <div className="doc-controls"></div>
+          <div className="doc-controls"></div>
+          <div className="doc-controls"></div>
         </div>
-
-        {/* Document content */}
         <div className="doc-content">
-          {/* Document lines with exact specifications */}
-          <div className="doc-line" style={{width: '80%'}}></div>  {/* 229px */}
-          <div className="doc-line" style={{width: '60%'}}></div>  {/* 172px */}
-          <div className="doc-line highlighted" style={{width: '90%'}}></div>  {/* 257px - highlighted */}
-          <div className="doc-line" style={{width: '75%'}}></div>  {/* 215px */}
-          <div className="doc-line" style={{width: '85%'}}></div>  {/* 243px */}
-          <div className="doc-line" style={{width: '40%'}}></div>  {/* 114px */}
-          <div className="doc-line" style={{width: '95%'}}></div>  {/* 272px */}
-          <div className="doc-line" style={{width: '70%'}}></div>  {/* 200px */}
-
-          {/* Signature area with exact positioning */}
-          <div className="signature-area">
-            Sign Here
-          </div>
-        </div>
-
-        {/* Floating cursors positioned at 60% from left, 50% from top */}
-        <div className="floating-cursors">
-          <div className="cursor-dot cursor-dot-cyan"></div>
-          <div className="cursor-dot cursor-dot-gold"></div>
+          <div className="doc-line" style={{ width: '80%' }}></div>
+          <div className="doc-line" style={{ width: '60%' }}></div>
+          <div className="doc-line highlighted" style={{ width: '90%' }}></div>
+          <div className="doc-line" style={{ width: '75%' }}></div>
+          <div className="doc-line" style={{ width: '85%' }}></div>
+          <div className="doc-line" style={{ width: '40%' }}></div>
+          <div className="doc-line" style={{ width: '95%' }}></div>
+          <div className="doc-line" style={{ width: '70%' }}></div>
+          <div className="signature-area">Sign Here</div>
         </div>
       </div>
-
-      {/* Glow effect */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-lg blur-xl transition-opacity duration-300 -z-10 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{
-          transform: `perspective(1000px) rotateY(${mousePosition.x}deg) rotateX(${mousePosition.y}deg) scale(1.1)`,
-        }}
-      />
+      
+      <div className="floating-cursors">
+        <div className="cursor-dot"></div>
+        <div className="cursor-dot"></div>
+      </div>
     </div>
   );
 };

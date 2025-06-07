@@ -12,7 +12,13 @@ router.get('/profile', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // PUT /api/users/profile
-router.put('/profile', asyncHandler(async (req: Request, res: Response) => {
+// Import csrf from 'csurf' for CSRF protection
+// This middleware adds CSRF protection to routes
+import csrf from 'csurf';
+
+const csrfProtection = csrf({ cookie: true });
+
+router.put('/profile', csrfProtection, asyncHandler(async (req: Request, res: Response) => {
   res.json({
     message: 'Update user profile endpoint - Coming soon!',
     timestamp: new Date().toISOString()

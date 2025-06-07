@@ -47,8 +47,12 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(rateLimiter);
 
 // Request logging
+// Import the escape function from a sanitization library (e.g., lodash)
+// Lodash provides utility functions for string manipulation and sanitization
+const { escape } = require('lodash');
+
 app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.path} - ${req.ip}`);
+  logger.info(`${escape(req.method)} ${escape(req.path)} - ${escape(req.ip)}`);
   next();
 });
 
@@ -70,16 +74,16 @@ app.use('/api/chat', require('./routes/chat'));
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {
-  logger.info(`User connected: ${socket.id}`);
+  logger.info(`User connected: ${escape(socket.id)}`);
 
   socket.on('join-document', (documentId: string) => {
     socket.join(`document:${documentId}`);
-    logger.info(`User ${socket.id} joined document ${documentId}`);
+    logger.info(`User ${escape(socket.id)} joined document ${escape(documentId)}`);
   });
 
   socket.on('leave-document', (documentId: string) => {
     socket.leave(`document:${documentId}`);
-    logger.info(`User ${socket.id} left document ${documentId}`);
+    logger.info(`User ${escape(socket.id)} left document ${escape(documentId)}`);
   });
 
   socket.on('document-change', (data) => {
@@ -95,15 +99,17 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    logger.info(`User disconnected: ${socket.id}`);
+    logger.info(`User disconnected: ${escape(socket.id)}`);
   });
 });
 
 // 404 handler
 app.use('*', (req, res) => {
+  // Sanitize the originalUrl to prevent XSS
+  const sanitizedUrl = escape(req.originalUrl);
   res.status(404).json({
     error: 'Not Found',
-    message: `Route ${req.originalUrl} not found`,
+    message: `Route ${sanitizedUrl} not found`,
     timestamp: new Date().toISOString()
   });
 });

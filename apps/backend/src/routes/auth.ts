@@ -4,7 +4,13 @@ import { asyncHandler } from '../middleware/errorHandler';
 const router = Router();
 
 // POST /api/auth/register
-router.post('/register', asyncHandler(async (req: Request, res: Response) => {
+// Import csrf from 'csurf' for CSRF protection
+// This middleware adds CSRF protection to the registration endpoint
+import csrf from 'csurf';
+
+const csrfProtection = csrf({ cookie: true });
+
+router.post('/register', csrfProtection, asyncHandler(async (req: Request, res: Response) => {
   // TODO: Implement user registration
   res.json({
     message: 'Registration endpoint - Coming soon!',
@@ -13,7 +19,9 @@ router.post('/register', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // POST /api/auth/login
-router.post('/login', asyncHandler(async (req: Request, res: Response) => {
+// This middleware adds CSRF protection to the login route
+
+router.post('/login', csrfProtection, asyncHandler(async (req: Request, res: Response) => {
   // TODO: Implement user login
   res.json({
     message: 'Login endpoint - Coming soon!',
@@ -22,7 +30,9 @@ router.post('/login', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // POST /api/auth/logout
-router.post('/logout', asyncHandler(async (req: Request, res: Response) => {
+// This middleware adds CSRF protection to the logout route
+
+router.post('/logout', csrfProtection, asyncHandler(async (req: Request, res: Response) => {
   // TODO: Implement user logout
   res.json({
     message: 'Logout endpoint - Coming soon!',

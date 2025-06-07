@@ -3,6 +3,10 @@ import { asyncHandler } from '../middleware/errorHandler';
 
 const router = Router();
 
+// Import csrf from 'csurf' for CSRF protection
+import csrf from 'csurf';
+const csrfProtection = csrf({ cookie: true });
+
 // GET /api/documents
 router.get('/', asyncHandler(async (req: Request, res: Response) => {
   res.json({
@@ -13,7 +17,7 @@ router.get('/', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // POST /api/documents
-router.post('/', asyncHandler(async (req: Request, res: Response) => {
+router.post('/', csrfProtection, asyncHandler(async (req: Request, res: Response) => {
   res.json({
     message: 'Create document endpoint - Coming soon!',
     timestamp: new Date().toISOString()
@@ -29,7 +33,8 @@ router.get('/:id', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // PUT /api/documents/:id
-router.put('/:id', asyncHandler(async (req: Request, res: Response) => {
+// This middleware adds CSRF protection to the route
+router.put('/:id', csrfProtection, asyncHandler(async (req: Request, res: Response) => {
   res.json({
     message: `Update document ${req.params.id} endpoint - Coming soon!`,
     timestamp: new Date().toISOString()
@@ -37,7 +42,7 @@ router.put('/:id', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // DELETE /api/documents/:id
-router.delete('/:id', asyncHandler(async (req: Request, res: Response) => {
+router.delete('/:id', csrfProtection, asyncHandler(async (req: Request, res: Response) => {
   res.json({
     message: `Delete document ${req.params.id} endpoint - Coming soon!`,
     timestamp: new Date().toISOString()

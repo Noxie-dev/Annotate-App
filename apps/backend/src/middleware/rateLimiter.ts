@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { RateLimiterMemory, RateLimiterRedis } from 'rate-limiter-flexible';
 import Redis from 'ioredis';
 import { logger } from '../utils/logger';
+import stringify = require('json-stringify-safe');
 
 // Create Redis client if available
 let redisClient: Redis | undefined;
@@ -16,10 +17,10 @@ try {
 
 // Rate limiter configuration
 const rateLimiterConfig = {
-  keyPrefix: 'file_chat_rl',
-  points: 100, // Number of requests
-  duration: 60, // Per 60 seconds
-  blockDuration: 60, // Block for 60 seconds if limit exceeded
+  keyPrefix: process.env.RATE_LIMIT_KEY_PREFIX || 'file_chat_rl',
+  points: Number(process.env.RATE_LIMIT_POINTS) || 100, // Number of requests
+  duration: Number(process.env.RATE_LIMIT_DURATION) || 60, // Per 60 seconds
+  blockDuration: Number(process.env.RATE_LIMIT_BLOCK_DURATION) || 60, // Block for 60 seconds if limit exceeded
 };
 
 // Create rate limiter instance
@@ -34,16 +35,16 @@ const rateLimiter = redisClient
 const authRateLimiter = redisClient
   ? new RateLimiterRedis({
       storeClient: redisClient,
-      keyPrefix: 'file_chat_auth_rl',
-      points: 5, // 5 requests
-      duration: 60, // Per 60 seconds
-      blockDuration: 300, // Block for 5 minutes
+      keyPrefix: process.env.AUTH_RATE_LIMIT_KEY_PREFIX || 'file_chat_auth_rl',
+      points: Number(process.env.AUTH_RATE_LIMIT_POINTS) || 5, // 5 requests
+      duration: Number(process.env.AUTH_RATE_LIMIT_DURATION) || 60, // Per 60 seconds
+      blockDuration: Number(process.env.AUTH_RATE_LIMIT_BLOCK_DURATION) || 300, // Block for 5 minutes
     })
   : new RateLimiterMemory({
-      keyPrefix: 'file_chat_auth_rl',
-      points: 5,
-      duration: 60,
-      blockDuration: 300,
+      keyPrefix: process.env.AUTH_RATE_LIMIT_KEY_PREFIX || 'file_chat_auth_rl',
+      points: Number(process.env.AUTH_RATE_LIMIT_POINTS) || 5,
+      duration: Number(process.env.AUTH_RATE_LIMIT_DURATION) || 60,
+      blockDuration: Number(process.env.AUTH_RATE_LIMIT_BLOCK_DURATION) || 300,
     });
 
 export const rateLimiterMiddleware = async (
@@ -51,6 +52,7 @@ export const rateLimiterMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
+  // JSON.stringify is used to safely encode potentially malicious input before logging
   try {
     const key = req.ip || 'unknown';
     
@@ -62,7 +64,7 @@ export const rateLimiterMiddleware = async (
   } catch (rejRes: any) {
     const secs = Math.round(rejRes.msBeforeNext / 1000) || 1;
     
-    logger.warn(`Rate limit exceeded for IP: ${req.ip}`, {
+    logger.warn(`Rate limit exceeded for IP: ${stringify(req.ip)}`, {
       path: req.path,
       method: req.method,
       retryAfter: secs
@@ -79,3 +81,4 @@ export const rateLimiterMiddleware = async (
 };
 
 export { rateLimiterMiddleware as rateLimiter };
+

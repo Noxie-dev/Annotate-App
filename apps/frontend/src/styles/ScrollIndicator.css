@@ -1,0 +1,31 @@
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  animation: bounce 2s infinite;
+}
+
+.mouse-icon {
+  width: 20px;
+  height: 32px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  position: relative;
+  margin: 0 auto 0.5rem;
+}
+
+.mouse-wheel {
+  width: 2px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 1px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll 1.5s infinite;
+}
+

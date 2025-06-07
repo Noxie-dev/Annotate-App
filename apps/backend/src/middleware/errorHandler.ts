@@ -13,13 +13,19 @@ export const errorHandler = (
   next: NextFunction
 ) => {
   // Log the error
+  // Sanitize log fields to prevent log injection
+  const sanitize = (input: any) =>
+    typeof input === 'string'
+      ? input.replace(/[\r\n]/g, ' ').replace(/[\u2028\u2029]/g, ' ')
+      : input;
+
   logger.error('Error occurred:', {
-    message: err.message,
-    stack: err.stack,
-    url: req.url,
-    method: req.method,
-    ip: req.ip,
-    userAgent: req.get('User-Agent')
+    message: sanitize(err.message),
+    stack: sanitize(err.stack),
+    url: sanitize(req.url),
+    method: sanitize(req.method),
+    ip: sanitize(req.ip),
+    userAgent: sanitize(req.get('User-Agent'))
   });
 
   // Default error values
