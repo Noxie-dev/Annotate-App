@@ -22,7 +22,7 @@ const consoleFormat = winston.format.combine(
 export const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
   format: logFormat,
-  defaultMeta: { service: 'file-chat-backend' },
+  defaultMeta: { service: 'annotate-app-backend' },
   transports: [
     // Console transport for development
     new winston.transports.Console({

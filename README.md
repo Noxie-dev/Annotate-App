@@ -1,4 +1,4 @@
-# File Chat: Supreme Edition™
+# Annotate App: Supreme Edition™
 
 A comprehensive document collaboration platform with AI-powered insights, real-time collaboration, and seamless cross-platform experience.
 
@@ -40,7 +40,7 @@ A comprehensive document collaboration platform with AI-powered insights, real-t
 ## 📁 Project Structure
 
 ```
-file-chat-supreme/
+annotate-app-supreme/
 ├── apps/
 │   ├── frontend/          # React web application
 │   ├── backend/           # Node.js API server
@@ -67,7 +67,7 @@ file-chat-supreme/
 1. **Clone and Install**
    ```bash
    git clone <repository-url>
-   cd file-chat-supreme
+   cd annotate-app-supreme
    npm install
    ```
 
@@ -222,4 +222,4 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 
 ---
 
-**File Chat: Supreme Edition™** - Built with ❤️ using modern web technologies.
+**Annotate App: Supreme Edition™** - Built with ❤️ using modern web technologies.

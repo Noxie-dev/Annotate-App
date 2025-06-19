@@ -10,7 +10,7 @@ import { useVoiceRecording } from './hooks/useVoiceRecording';
 
 const WEBSOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL || 'ws://localhost:8080/chat';
 
-const FileChat = () => {
+const AnnotateApp = () => {
   // State management
   const [isInCall, setIsInCall] = useState(false);
   const [isVideoCall, setIsVideoCall] = useState(false);
@@ -183,4 +183,4 @@ const FileChat = () => {
   );
 };
 
-export default FileChat;
+export default AnnotateApp;

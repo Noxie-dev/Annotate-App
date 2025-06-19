@@ -1,7 +1,7 @@
 {
-  "name": "file-chat-supreme",
+  "name": "annotate-app-supreme",
   "version": "1.0.0",
-  "description": "File Chat: Supreme Edition™ - A comprehensive document collaboration platform",
+  "description": "Annotate App: Supreme Edition™ - A comprehensive document collaboration platform",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -30,6 +30,6 @@
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
-  "author": "File Chat Team",
+  "author": "Annotate App Team",
   "license": "MIT"
 }

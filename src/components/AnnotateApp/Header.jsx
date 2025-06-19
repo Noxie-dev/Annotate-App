@@ -16,10 +16,10 @@ const Header = ({
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2">
           <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-            {typeof t === 'function' ? t('header.title') : 'FileChat'}
+            {typeof t === 'function' ? t('header.title') : 'AnnotateApp'}
           </h1>
           <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-            FileChat
+            AnnotateApp
           </h1>
         </div>
         

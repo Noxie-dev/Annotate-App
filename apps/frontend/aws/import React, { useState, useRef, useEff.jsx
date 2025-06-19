@@ -31,7 +31,7 @@ import {
 } from 'lucide-react';
 import { PredictiveAssistanceEngine } from '../../core/IntelligenceEngines';
 
-const FileChat = () => {
+const AnnotateApp = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isInCall, setIsInCall] = useState(false);
   const [isVideoCall, setIsVideoCall] = useState(false);
@@ -152,7 +152,7 @@ const FileChat = () => {
               <span className="text-white font-bold text-sm">F</span>
             </div>
             <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-              FileChat
+              AnnotateApp
             </h1>
           </div>
           
@@ -544,4 +544,4 @@ const FileChat = () => {
   );
 };
 
-export default FileChat;
+export default AnnotateApp;

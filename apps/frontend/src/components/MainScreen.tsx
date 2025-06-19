@@ -17,7 +17,7 @@ type Folder = {
 };
 
 const MainScreen: React.FC = () => {
-  const [folders, setFolders] = useState<Folder[]>([
+  const [folders] = useState<Folder[]>([
     {
       id: '1',
       name: 'Project Documents',
