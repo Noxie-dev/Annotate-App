@@ -1,0 +1,49 @@
+[
+  {
+    "id": "annotation-1",
+    "type": "highlight",
+    "pageNumber": 1,
+    "x": 150,
+    "y": 200,
+    "width": 300,
+    "height": 20,
+    "color": "#fbbf24",
+    "userId": "user-1",
+    "timestamp": "2025-06-20T10:25:00Z",
+    "content": "Key revenue figure - needs verification"
+  },
+  {
+    "id": "annotation-2", 
+    "type": "text-comment",
+    "pageNumber": 1,
+    "x": 200,
+    "y": 350,
+    "userId": "user-2",
+    "timestamp": "2025-06-20T10:28:00Z",
+    "content": "This section looks great! The growth metrics are impressive.",
+    "replies": []
+  },
+  {
+    "id": "annotation-3",
+    "type": "drawing", 
+    "pageNumber": 1,
+    "userId": "user-1",
+    "timestamp": "2025-06-20T10:33:00Z",
+    "path": "M250,300 L350,320 L300,380 Z",
+    "color": "#ef4444",
+    "strokeWidth": 3
+  },
+  {
+    "id": "annotation-4",
+    "type": "rectangle",
+    "pageNumber": 1,
+    "x": 100,
+    "y": 500,
+    "width": 200,
+    "height": 100,
+    "color": "#8b5cf6",
+    "userId": "user-3",
+    "timestamp": "2025-06-20T10:38:00Z",
+    "content": "Legal approval section"
+  }
+]

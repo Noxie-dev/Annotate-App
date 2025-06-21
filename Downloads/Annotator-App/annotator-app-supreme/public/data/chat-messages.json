@@ -1,0 +1,38 @@
+[
+  {
+    "id": "msg-1",
+    "userId": "user-1",
+    "content": "Hey, can you double-check the figures on page 5?",
+    "timestamp": "2025-06-20T10:30:00Z",
+    "type": "text"
+  },
+  {
+    "id": "msg-2", 
+    "userId": "user-2",
+    "content": "Sure! I'll review those numbers now.",
+    "timestamp": "2025-06-20T10:31:00Z",
+    "type": "text"
+  },
+  {
+    "id": "msg-3",
+    "userId": "user-1", 
+    "content": "I noticed some discrepancies in the Q3 revenue calculations. Let me highlight them for you.",
+    "timestamp": "2025-06-20T10:32:00Z",
+    "type": "text"
+  },
+  {
+    "id": "msg-4",
+    "userId": "user-2",
+    "content": "voice-note-1.mp3",
+    "timestamp": "2025-06-20T10:35:00Z",
+    "type": "voice",
+    "duration": 45
+  },
+  {
+    "id": "msg-5",
+    "userId": "user-3",
+    "content": "The legal review is complete. All sections look good from a compliance perspective.",
+    "timestamp": "2025-06-20T10:40:00Z", 
+    "type": "text"
+  }
+]

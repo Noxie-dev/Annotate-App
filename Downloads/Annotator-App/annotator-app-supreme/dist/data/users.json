@@ -1,0 +1,29 @@
+[
+  {
+    "id": "user-1",
+    "name": "Alex Chen",
+    "email": "alex.chen@company.com",
+    "avatar": "/images/user-avatar-1.jpg!sw800",
+    "role": "Senior Analyst",
+    "status": "online",
+    "color": "#3b82f6"
+  },
+  {
+    "id": "user-2", 
+    "name": "Sarah Williams",
+    "email": "sarah.williams@company.com",
+    "avatar": "/images/user-avatar-2.jpg",
+    "role": "Product Manager",
+    "status": "online",
+    "color": "#8b5cf6"
+  },
+  {
+    "id": "user-3",
+    "name": "Michael Rodriguez",
+    "email": "michael.rodriguez@company.com", 
+    "avatar": "/images/user-avatar-1.jpg!sw800",
+    "role": "Legal Counsel",
+    "status": "away",
+    "color": "#10b981"
+  }
+]
