@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "TheArtisanApp",
+    "slug": "artisan-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/artisan-logo.png",
+    "scheme": "theartisanapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/artisan-logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/artisan-logo.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/artisan-logo.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b35207da-e6ce-44a9-a110-97e535c786a3"
+      }
+    },
+    "owner": "phaki"
+  }
+}
