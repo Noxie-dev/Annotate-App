@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  # Development service
+  annotator-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: annotator-app-dev
+    ports:
+      - "5173:5173"
+    volumes:
+      # Mount source code for hot reloading
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./index.html:/app/index.html
+      - ./vite.config.ts:/app/vite.config.ts
+      - ./tailwind.config.js:/app/tailwind.config.js
+      - ./postcss.config.js:/app/postcss.config.js
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./tsconfig.app.json:/app/tsconfig.app.json
+      - ./tsconfig.node.json:/app/tsconfig.node.json
+      # Exclude node_modules to avoid conflicts
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:3001}
+      - VITE_STORAGE_TYPE=${VITE_STORAGE_TYPE:-local}
+      - VITE_WS_URL=${VITE_WS_URL:-ws://localhost:3001}
+    networks:
+      - annotator-network
+    profiles:
+      - dev
+
+  # Production service
+  annotator-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: annotator-app-prod
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - annotator-network
+    profiles:
+      - prod
+    restart: unless-stopped
+
+  # Optional: Backend service placeholder
+  # Uncomment and configure when you have a backend API
+  # backend:
+  #   image: your-backend-image:latest
+  #   container_name: annotator-backend
+  #   ports:
+  #     - "3001:3001"
+  #   environment:
+  #     - NODE_ENV=production
+  #     - DATABASE_URL=${DATABASE_URL}
+  #   networks:
+  #     - annotator-network
+  #   profiles:
+  #     - prod
+  #     - dev
+
+  # Optional: Database service placeholder
+  # Uncomment and configure if you need a database
+  # database:
+  #   image: postgres:15-alpine
+  #   container_name: annotator-db
+  #   environment:
+  #     - POSTGRES_DB=${POSTGRES_DB:-annotator}
+  #     - POSTGRES_USER=${POSTGRES_USER:-annotator}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - annotator-network
+  #   profiles:
+  #     - prod
+  #     - dev
+
+networks:
+  annotator-network:
+    driver: bridge
+
+# Uncomment if using database
+# volumes:
+#   postgres_data:
